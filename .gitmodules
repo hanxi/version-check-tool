@@ -1,0 +1,3 @@
+[submodule "pytest-html"]
+	path = pytest-html
+	url = git@github.com:hanxi/pytest-html-cn.git
