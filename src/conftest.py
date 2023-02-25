@@ -41,6 +41,13 @@ def pytest_html_results_table_row(report, cells):
 def pytest_html_results_table_html(report, data):
     del data[:]
     log = html.div(class_="log")
+    print(report)
+    if report.passed:
+        log = html.div(class_="log-passed")
+    elif report.skipped:
+        log = html.div(class_="log-skipped")
+    elif report.failed:
+        log = html.div(class_="log-failed")
     if report.skipped and report.longrepr:
         arr = report.longreprtext.strip("()").split(",")
         skip_msg = arr[len(arr)-1]
@@ -62,7 +69,7 @@ def pytest_html_results_table_html(report, data):
             log.append(html.br())
 
     for section in report.sections:
-        header, content = map(escape, section)
+        _, content = map(escape, section)
 
         converter = Ansi2HTMLConverter(
             inline=False, escaped=False,
